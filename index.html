@@ -298,8 +298,7 @@ try {
     const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
     let currentUser = null;
 
-    // --- NEW MAGIC: AUTO-SYNC TO CLOUD FUNCTION ---
-    // Every time you change data locally, it silently pushes a backup to Supabase
+    // --- AUTO-SYNC TO CLOUD FUNCTION ---
     function syncToCloud(docsArray) {
         localStorage.setItem('documents', JSON.stringify(docsArray));
         if (currentUser) {
@@ -312,14 +311,14 @@ try {
         }
     }
 
-    // --- 2. AUTHENTICATION (NOW PULLS FROM CLOUD ON LOGIN!) ---
+    // --- 2. AUTHENTICATION (NOW COMPLETELY CLEARS GHOST DATA!) ---
     supabaseClient.auth.onAuthStateChange(async (event, session) => {
         if (session) {
             currentUser = session.user;
             document.getElementById('auth-container').style.display = 'none';
             document.getElementById('main-app-container').style.display = 'block';
             
-            // MAGIC: When you log in, it downloads your private vault from the cloud!
+            // Download the private vault from the cloud
             const { data, error } = await supabaseClient
                 .from('user_vault')
                 .select('vault_data')
@@ -327,10 +326,10 @@ try {
                 .single();
 
             if (data && data.vault_data) {
-                // Override whatever is currently on the laptop/phone with the Cloud Data
+                // If they have data in the cloud, show it!
                 localStorage.setItem('documents', JSON.stringify(data.vault_data));
-            } else if (!localStorage.getItem('documents')) {
-                // If brand new account, start with empty array
+            } else {
+                // FIX: If they are a new user, force the screen to be completely empty!
                 localStorage.setItem('documents', '[]');
             }
             
@@ -360,7 +359,11 @@ try {
         await supabaseClient.auth.signInWithOAuth({ provider: 'google' });
     });
 
+    // FIX: WIPE LOCAL MEMORY ON LOGOUT SO THE NEXT PERSON DOESN'T SEE IT
     window.logoutSupabase = async function() {
+        localStorage.removeItem('documents');
+        localStorage.removeItem('lastUpdatedCode');
+        localStorage.removeItem('lastUpdatedAt');
         await supabaseClient.auth.signOut();
     };
 
@@ -375,11 +378,6 @@ try {
             }
         });
     });
-
-    const initialData = []; 
-    if (!localStorage.getItem('documents') || localStorage.getItem('documents') === '[]') {
-        localStorage.setItem('documents', JSON.stringify(initialData));
-    }
 
     function updateLoginTimestamp() {
         const now = new Date();
@@ -454,7 +452,7 @@ try {
             document.getElementById('mainActionBtn').style.color = "white";
         }
 
-        syncToCloud(documents); // <--- Triggers Auto-Sync!
+        syncToCloud(documents); 
         clearFields();
         displayDocuments();
     }
@@ -526,7 +524,7 @@ try {
             `;
         });
 
-        if (dynamicFixNeeded) syncToCloud(documents); // <--- Triggers Auto-Sync!
+        if (dynamicFixNeeded) syncToCloud(documents); 
 
         if (currentSelection === "MULTIPLE_SELECTION") { selectBox.value = "MULTIPLE_SELECTION"; toggleCheckboxColumns(true); } 
         else { toggleCheckboxColumns(false); }
@@ -558,14 +556,14 @@ try {
             let documents = JSON.parse(localStorage.getItem('documents')) || [];
             targetIndices.sort((a, b) => b - a);
             targetIndices.forEach(index => { documents.splice(index, 1); });
-            syncToCloud(documents); // <--- Triggers Auto-Sync!
+            syncToCloud(documents); 
             selectBox.value = ""; displayDocuments();
         }
     }
     window.executeResetAll = function() {
         if(confirm("💣 CRITICAL METRIC ALERT: Are you completely sure you want to delete ALL vault records? This cannot be undone.")) {
             localStorage.removeItem('lastUpdatedCode'); localStorage.removeItem('lastUpdatedAt');
-            syncToCloud([]); // <--- Triggers Auto-Sync!
+            syncToCloud([]); 
             document.getElementById('cleanupTargetSelect').value = ""; displayDocuments();
             alert("Vault collection database successfully purged.");
         }
@@ -584,7 +582,7 @@ try {
             try {
                 const imported = JSON.parse(e.target.result);
                 if (Array.isArray(imported)) {
-                    syncToCloud(imported); // <--- Triggers Auto-Sync!
+                    syncToCloud(imported); 
                     displayDocuments(); alert("Vault backup records loaded successfully!");
                 } else { alert("Invalid JSON file template format."); }
             } catch(err) { alert("Error reading chosen backup data file."); }
