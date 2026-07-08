@@ -130,6 +130,12 @@
     <div class="extra-input-group" style="gap: 14px;">
         <input type="email" id="auth-email" placeholder="Email Address" class="extra-input" style="padding: 14px;">
         <input type="password" id="auth-password" placeholder="Password" class="extra-input" style="padding: 14px;">
+        
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; user-select: none;">
+            <input type="checkbox" onclick="const p = document.getElementById('auth-password'); p.type = (p.type === 'password') ? 'text' : 'password';" style="accent-color: var(--primary); width: 15px; height: 15px; cursor: pointer;">
+            Show Password
+        </div>
+
         <button id="auth-login-btn" class="extra-btn" style="padding: 14px; margin-top: 8px;">Login</button>
         <button id="auth-signup-btn" class="secondary-btn" style="padding: 14px;">Sign Up</button>
         <hr style="border-color: var(--glass-border); width: 100%; margin: 8px 0;">
