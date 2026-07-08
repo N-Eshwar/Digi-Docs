@@ -463,7 +463,7 @@ try {
             uploadStatus.innerText = "Uploading to Cloud...";
             
             const filePath = `${currentUser.id}/${Date.now()}_${fileInput.name}`;
-            const { error: uploadError } = await supabaseClient.storage.from('USER_DOCS').upload(filePath, fileInput);
+            const { error: uploadError } = await supabaseClient.storage.from('User_Docs').upload(filePath, fileInput);
             
             if (uploadError) {
                 alert("File Upload Error: " + uploadError.message);
@@ -471,7 +471,7 @@ try {
                 return;
             }
             
-            const { data: urlData } = supabaseClient.storage.from('USER_DOCS').getPublicUrl(filePath);
+            const { data: urlData } = supabaseClient.storage.from('User_Docs').getPublicUrl(filePath);
             fileUrl = urlData.publicUrl;
             uploadStatus.style.display = 'none';
         }
