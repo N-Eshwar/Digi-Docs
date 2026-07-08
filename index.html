@@ -45,7 +45,7 @@
             background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
                               radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%),
                               linear-gradient(135deg, rgba(15, 23, 42, 0.2), rgba(30, 41, 59, 0.2)),
-                              url('https://miro.medium.com/1*-4GqkngAwACkI5cB7Ffvrg.jpeg');
+                              url('https://c8.alamy.com/comp/2S97EPX/cloud-computing-network-image-over-html-and-css-code-on-grid-background-2S97EPX.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -104,6 +104,14 @@
             }
         }
 
+        /* Adjusted wrapper for Utility Tray and Search Input */
+        .utility-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
         .utility-tray {
             display: flex;
             justify-content: center;
@@ -112,14 +120,29 @@
             width: 100%;
         }
 
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
         @media (min-width: 768px) {
-            .utility-tray {
+            .utility-wrapper {
                 position: absolute;
                 top: 0;
                 right: 0;
                 width: auto;
+                align-items: flex-end;
+            }
+            .utility-tray {
+                position: static;
+                width: auto;
                 gap: 12px;
                 flex-wrap: nowrap;
+            }
+            .search-box {
+                width: 100%;
+                margin: 0;
             }
         }
 
@@ -549,11 +572,16 @@
 
 <div class="container">
     <div class="header-section">
-        <div class="utility-tray">
-            <button class="secondary-btn" onclick="toggleTheme()">🎨 Theme</button>
-            <button class="secondary-btn" onclick="exportJSONBackup()">💾 Backup</button>
-            <button class="secondary-btn" onclick="triggerRestoreClick()">🔄 Restore</button>
-            <input type="file" id="restoreFileSelector" accept=".json" style="display: none;" onchange="importJSONBackup(event)">
+        <div class="utility-wrapper">
+            <div class="utility-tray">
+                <button class="secondary-btn" onclick="toggleTheme()">🎨 Theme</button>
+                <button class="secondary-btn" onclick="exportJSONBackup()">💾 Backup</button>
+                <button class="secondary-btn" onclick="triggerRestoreClick()">🔄 Restore</button>
+                <input type="file" id="restoreFileSelector" accept=".json" style="display: none;" onchange="importJSONBackup(event)">
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Search code, name, or date..." class="extra-input" onkeyup="filterDocuments()" style="padding: 8px 12px; font-size: 0.85rem; border-radius: 8px;">
+            </div>
         </div>
         <div>
             <h1>Digi Documents</h1>
@@ -871,6 +899,9 @@
         } else {
             toggleCheckboxColumns(false);
         }
+
+        // Re-apply filter if search input has text
+        filterDocuments();
     }
 
     function toggleSelectAllRows(masterCheckbox) {
@@ -1026,14 +1057,14 @@
         
         // --- Updated randomPrefix logic ---
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const smallLetters = "abcdefghijklmnopqrstuvwxyz"; // Added lowercase set
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const smallLetters = "abcdefghijklmnopqrstuvwxyz"; // Added lowercase set
 
-const randomPrefix = letters.charAt(Math.floor(Math.random() * letters.length)) + 
-                     smallLetters.charAt(Math.floor(Math.random() * smallLetters.length));
+        const randomPrefix = letters.charAt(Math.floor(Math.random() * letters.length)) + 
+                             smallLetters.charAt(Math.floor(Math.random() * smallLetters.length));
 
-const randomNumber = Math.floor(Math.random() * 9999).toString().padStart(4, '0');
-document.getElementById('bill-number-val').innerText = `#${randomPrefix}-${randomNumber}`;
+        const randomNumber = Math.floor(Math.random() * 9999).toString().padStart(4, '0');
+        document.getElementById('bill-number-val').innerText = `#${randomPrefix}-${randomNumber}`;
         
         document.getElementById('bill-generation-time').innerText = now.toLocaleString();
         document.getElementById('bill-transaction-count').innerText = `${documents.length} Accounts Logged`;
@@ -1063,6 +1094,28 @@ document.getElementById('bill-number-val').innerText = `#${randomPrefix}-${rando
             link.download = `Vault_Master_Snapshot_${Date.now()}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
+        });
+    }
+
+    // New Filter Function for the Search Bar
+    function filterDocuments() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const rows = document.querySelectorAll('#documentTable tbody tr');
+
+        if (rows.length === 1 && rows[0].cells.length === 1) return; // Ignore if table is empty state message
+
+        rows.forEach(row => {
+            if (row.cells.length > 3) { // Ensure it's a valid data row
+                const code = row.cells[1].textContent.toLowerCase();
+                const docName = row.cells[2].textContent.toLowerCase();
+                const docDate = row.cells[3].textContent.toLowerCase();
+                
+                if (code.includes(query) || docName.includes(query) || docDate.includes(query)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
         });
     }
 
