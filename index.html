@@ -104,7 +104,6 @@
             }
         }
 
-        /* Adjusted wrapper for Utility Tray and Search Input */
         .utility-wrapper {
             display: flex;
             flex-direction: column;
@@ -493,7 +492,6 @@
             transition: all 0.15s;
         }
 
-        .row-btn.btn-show { background: #4f46e5; }
         .row-btn.btn-edit { background: #d97706; color: #1e293b; }
         .row-btn:hover { opacity: 0.9; }
 
@@ -648,14 +646,7 @@
 
                     <div>
                         <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px; letter-spacing:0.02em;">Document Number</label>
-                        <input type="password" id="docNumber" placeholder="******" class="extra-input">
-                    </div>
-
-                    <div style="display: flex; align-items: center; margin-top: 2px;">
-                        <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; user-select: none;">
-                            <input type="checkbox" onclick="toggleInputVisibility()" style="accent-color: var(--primary); width: 15px; height: 15px; border-radius: 4px;"> 
-                            Show Document Number
-                        </label>
+                        <input type="text" id="docNumber" placeholder="******" class="extra-input">
                     </div>
 
                     <button id="mainActionBtn" onclick="saveDocument()" class="extra-btn" style="margin-top: 8px;">
@@ -780,10 +771,6 @@
         // Returns format: DX-XXX (e.g., DA-254)
         return `${prefix}-${String(randNum)}`;
     }
-    function toggleInputVisibility() {
-        const passInput = document.getElementById("docNumber");
-        passInput.type = (passInput.type === "password") ? "text" : "password";
-    }
 
     function saveDocument() {
         const docName = document.getElementById('docName').value;
@@ -878,10 +865,9 @@
                     <td style="font-family:monospace; font-weight:700; color:var(--accent);">${entry.code}</td>
                     <td style="font-weight:700; color:var(--text-main);">${entry.docName}</td>
                     <td style="color:var(--text-muted);">${entry.docDate}</td>
-                    <td><span id="stored-pass-${index}" style="display:inline-block; min-width: 120px; font-family:monospace; background:rgba(255,255,255,0.06); padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:700; letter-spacing:1px;">*****</span></td>
+                    <td><span id="stored-pass-${index}" style="display:inline-block; min-width: 120px; font-family:monospace; background:rgba(255,255,255,0.06); padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:700; letter-spacing:1px;">${entry.docNumber}</span></td>
                     <td>
                         <div class="action-btn-group">
-                            <button class="row-btn btn-show" onclick="toggleRowPass(this, ${index}, '${entry.docNumber}')">Show</button>
                             <button class="row-btn btn-edit" onclick="prepareEdit(${index})">Edit</button>
                         </div>
                     </td>
@@ -1024,17 +1010,6 @@
         
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    function toggleRowPass(btn, index, actualPass) {
-        const span = document.getElementById(`stored-pass-${index}`);
-        if (span.innerText === '*****') { 
-            span.innerText = actualPass; 
-            btn.innerText = 'Hide'; 
-        } else { 
-            span.innerText = '*****'; 
-            btn.innerText = 'Show'; 
-        }
-    }
     
     function clearFields() {
         document.getElementById('docName').value = '';
@@ -1055,10 +1030,8 @@
         let documents = JSON.parse(localStorage.getItem('documents')) || [];
         const now = new Date();
         
-        // --- Updated randomPrefix logic ---
-
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const smallLetters = "abcdefghijklmnopqrstuvwxyz"; // Added lowercase set
+        const smallLetters = "abcdefghijklmnopqrstuvwxyz"; 
 
         const randomPrefix = letters.charAt(Math.floor(Math.random() * letters.length)) + 
                              smallLetters.charAt(Math.floor(Math.random() * smallLetters.length));
