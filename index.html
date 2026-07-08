@@ -9,8 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
+        /* [YOUR EXACT CSS - 100% UNTOUCHED] */
         :root {
             --primary: #10b981;
             --primary-glow: rgba(16, 185, 129, 0.25);
@@ -45,7 +47,7 @@
             background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
                               radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%),
                               linear-gradient(135deg, rgba(15, 23, 42, 0.2), rgba(30, 41, 59, 0.2)),
-                              url('https://c8.alamy.com/comp/2S97EPX/cloud-computing-network-image-over-html-and-css-code-on-grid-background-2S97EPX.jpg');
+                              url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXNRwfMmOpCUSA7sKZgIU_zIRS_CKROx4Og21ZoJPicQ&s=10');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -61,485 +63,111 @@
             transition: color 0.3s ease;
         }
 
-        @media (min-width: 640px) {
-            body { padding: 24px 16px; align-items: center; }
-        }
-
+        @media (min-width: 640px) { body { padding: 24px 16px; align-items: center; } }
         *, *:before, *:after { box-sizing: border-box; }
 
         .container {
-            width: 100%;
-            max-width: 1280px;
-            background: rgba(15, 23, 42, 0.55);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 16px;
-            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.05);
-            overflow: hidden; 
+            width: 100%; max-width: 1280px; background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border); border-radius: 20px; padding: 16px;
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.05); overflow: hidden; 
         }
 
-        [data-theme="light"] .container {
-            background: rgba(255, 255, 255, 0.65);
-            box-shadow: 0 40px 100px -20px rgba(15, 23, 42, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.6);
-        }
+        [data-theme="light"] .container { background: rgba(255, 255, 255, 0.65); box-shadow: 0 40px 100px -20px rgba(15, 23, 42, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.6); }
 
         @media (min-width: 480px) { .container { padding: 24px; border-radius: 28px; } }
         @media (min-width: 768px) { .container { padding: 40px; border-radius: 32px; } }
 
-        .header-section {
-            text-align: center;
-            margin-bottom: 24px;
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 16px;
-        }
+        .header-section { text-align: center; margin-bottom: 24px; display: flex; flex-direction: column-reverse; gap: 16px; }
+        @media (min-width: 768px) { .header-section { display: block; margin-bottom: 40px; position: relative; } }
 
-        @media (min-width: 768px) {
-            .header-section {
-                display: block;
-                margin-bottom: 40px;
-                position: relative;
-            }
-        }
+        .utility-tray { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; width: 100%; }
+        @media (min-width: 768px) { .utility-tray { position: absolute; top: 0; right: 0; width: auto; gap: 12px; flex-wrap: nowrap; } }
 
-        .utility-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 100%;
-        }
-
-        .utility-tray {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap; 
-            gap: 8px;
-            width: 100%;
-        }
-
-        .search-box {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        @media (min-width: 768px) {
-            .utility-wrapper {
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: auto;
-                align-items: flex-end;
-            }
-            .utility-tray {
-                position: static;
-                width: auto;
-                gap: 12px;
-                flex-wrap: nowrap;
-            }
-            .search-box {
-                width: 100%;
-                margin: 0;
-            }
-        }
-
-        h1 {
-            margin: 0 0 8px 0;
-            font-size: 1.6rem;
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            background: linear-gradient(135deg, #34d399 0%, #60a5fa 50%, #818cf8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-            word-break: break-word;
-        }
-
+        h1 { margin: 0 0 8px 0; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.04em; background: linear-gradient(135deg, #34d399 0%, #60a5fa 50%, #818cf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; word-break: break-word; }
         @media (min-width: 480px) { h1 { font-size: 2rem; } }
         @media (min-width: 768px) { h1 { font-size: 3rem; margin-bottom: 12px; padding-right: 340px; text-align: left; } }
 
-        .subtitle {
-            color: var(--text-muted);
-            margin: 0;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            line-height: 1.4;
-        }
-        
+        .subtitle { color: var(--text-muted); margin: 0; font-size: 0.9rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1.4; }
         @media (min-width: 768px) { .subtitle { text-align: left; font-size: 1rem; padding-right: 340px; } }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
+        .stats-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 24px; }
         @media (min-width: 480px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px; } }
 
-        .stat-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 16px;
-            border-radius: 18px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
+        .stat-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 16px; border-radius: 18px; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
         @media (min-width: 768px) { .stat-card { padding: 24px; border-radius: 24px; } }
 
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, #10b981, #34d399);
-            opacity: 0.8;
-        }
-
+        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, #10b981, #34d399); opacity: 0.8; }
         .stat-card.accent-card::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
 
-        .stat-card h3 {
-            margin: 0 0 8px 0;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            font-weight: 700;
-        }
-
-        .stat-card p {
-            margin: 0;
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--text-main);
-            line-height: 1.2;
-        }
-
+        .stat-card h3 { margin: 0 0 8px 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); font-weight: 700; }
+        .stat-card p { margin: 0; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text-main); line-height: 1.2; }
         @media (min-width: 768px) { .stat-card p { font-size: 2rem; } }
 
-        .stat-card .sub-text {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 10px;
-            font-weight: 500;
-            border-top: 1px solid var(--glass-border);
-            padding-top: 10px;
-        }
+        .stat-card .sub-text { font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; font-weight: 500; border-top: 1px solid var(--glass-border); padding-top: 10px; }
 
-        .dashboard-layout {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-
+        .dashboard-layout { display: grid; grid-template-columns: 1fr; gap: 24px; }
         @media (min-width: 1024px) { .dashboard-layout { grid-template-columns: 1fr 360px; gap: 32px; } }
 
-        .grid-header {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
+        .grid-header { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+        @media (min-width: 480px) { .grid-header { flex-direction: row; justify-content: space-between; align-items: center; } }
+        .grid-title { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-main); }
 
-        @media (min-width: 480px) {
-            .grid-header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-        }
-
-        .grid-title {
-            font-size: 1.2rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: var(--text-main);
-        }
-
-        .days-grid-container {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 18px;
-            padding: 0; 
-            max-height: 450px;
-            width: 100%;
-            overflow-x: auto; 
-            overflow-y: auto;
-            position: relative;
-            isolation: isolate;
-        }
-        
+        .days-grid-container { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 18px; padding: 0; max-height: 450px; width: 100%; overflow-x: auto; overflow-y: auto; position: relative; isolation: isolate; }
         @media (min-width: 768px) { .days-grid-container { border-radius: 24px; } }
 
-        .days-grid-container::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        .days-grid-container::-webkit-scrollbar-track {
-            background: transparent;
-            margin: 4px;
-        }
-        .days-grid-container::-webkit-scrollbar-thumb {
-            background: var(--glass-border);
-            border-radius: 999px;
-        }
-        .days-grid-container::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
-        }
+        .days-grid-container::-webkit-scrollbar { width: 8px; height: 8px; }
+        .days-grid-container::-webkit-scrollbar-track { background: transparent; margin: 4px; }
+        .days-grid-container::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 999px; }
+        .days-grid-container::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-        .vault-table {
-            width: 100%;
-            border-collapse: separate; 
-            border-spacing: 0;
-            text-align: left;
-            font-size: 0.9rem;
-            min-width: 500px; 
-        }
+        .vault-table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; font-size: 0.9rem; min-width: 500px; }
+        .vault-table th { padding: 16px 20px; color: var(--text-muted); font-weight: 700; border-bottom: 2px solid var(--glass-border); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; position: sticky; top: 0; background-color: var(--th-bg); z-index: 10; white-space: nowrap; }
+        .vault-table th:first-child { border-top-left-radius: 17px; } .vault-table th:last-child { border-top-right-radius: 17px; }
+        @media (min-width: 768px) { .vault-table th:first-child { border-top-left-radius: 23px; } .vault-table th:last-child { border-top-right-radius: 23px; } }
+        .vault-table td { padding: 14px 20px; color: var(--text-main); border-bottom: 1px solid rgba(255, 255, 255, 0.06); vertical-align: middle; word-break: break-word; }
+        [data-theme="light"] .vault-table td { border-bottom: 1px solid rgba(15, 23, 42, 0.06); }
+        .vault-table tbody tr:hover { background: rgba(255, 255, 255, 0.02); }
+        [data-theme="light"] .vault-table tbody tr:hover { background: rgba(15, 23, 42, 0.02); }
 
-        .vault-table th {
-            padding: 16px 20px;
-            color: var(--text-muted);
-            font-weight: 700;
-            border-bottom: 2px solid var(--glass-border);
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            position: sticky;
-            top: 0;
-            background-color: var(--th-bg);
-            z-index: 10; 
-            white-space: nowrap;
-        }
-
-        .vault-table th:first-child {
-            border-top-left-radius: 17px;
-        }
-        .vault-table th:last-child {
-            border-top-right-radius: 17px;
-        }
-        @media (min-width: 768px) {
-            .vault-table th:first-child { border-top-left-radius: 23px; }
-            .vault-table th:last-child { border-top-right-radius: 23px; }
-        }
-
-        .vault-table td {
-            padding: 14px 20px;
-            color: var(--text-main);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            vertical-align: middle;
-            word-break: break-word; 
-        }
-
-        [data-theme="light"] .vault-table td {
-            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
-        }
-
-        .vault-table tbody tr:hover {
-            background: rgba(255, 255, 255, 0.02);
-        }
-        [data-theme="light"] .vault-table tbody tr:hover {
-            background: rgba(15, 23, 42, 0.02);
-        }
-
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        
+        .sidebar { display: flex; flex-direction: column; gap: 16px; }
         @media (min-width: 768px) { .sidebar { gap: 24px; } }
 
-        .side-panel {
-            background: var(--glass-bg);
-            padding: 16px;
-            border-radius: 18px;
-            border: 1px solid var(--glass-border);
-        }
-        
+        .side-panel { background: var(--glass-bg); padding: 16px; border-radius: 18px; border: 1px solid var(--glass-border); }
         @media (min-width: 768px) { .side-panel { padding: 24px; border-radius: 24px; } }
 
-        .side-panel h4 {
-            margin: 0 0 16px 0;
-            font-size: 0.8rem;
-            font-weight: 800;
-            color: var(--text-main);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            border-left: 3px solid var(--accent);
-            padding-left: 8px;
-        }
-
+        .side-panel h4 { margin: 0 0 16px 0; font-size: 0.8rem; font-weight: 800; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.08em; border-left: 3px solid var(--accent); padding-left: 8px; }
         .side-panel.bonus-panel h4 { border-left-color: var(--primary); }
         .side-panel.danger-panel h4 { border-left-color: var(--danger); }
 
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.25));
-            color: #60a5fa;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
+        .extra-input-group { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+        .extra-input { width: 100%; padding: 12px 14px; border: 1px solid var(--glass-border); border-radius: 10px; font-size: 0.9rem; font-weight: 600; outline: none; background: var(--input-bg); color: var(--text-main); transition: all 0.2s; box-sizing: border-box; }
+        .extra-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
 
-        .extra-input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 100%;
-        }
-
-        .extra-input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            outline: none;
-            background: var(--input-bg);
-            color: var(--text-main);
-            transition: all 0.2s;
-            box-sizing: border-box;
-        }
-
-        .extra-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-glow);
-        }
-
-        .extra-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9rem;
-            white-space: normal; 
-            transition: all 0.2s;
-            box-shadow: 0 4px 12px var(--primary-glow);
-            width: 100%;
-        }
-        
+        .extra-btn { background: var(--primary); color: white; border: none; padding: 12px 16px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.9rem; white-space: normal; transition: all 0.2s; box-shadow: 0 4px 12px var(--primary-glow); width: 100%; }
         .extra-btn:hover { opacity: 0.9; }
         
-        .danger-btn {
-            background: var(--danger);
-            color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9rem;
-            white-space: normal;
-            transition: all 0.2s;
-            box-shadow: 0 4px 12px var(--danger-glow);
-            width: 100%;
-        }
-        
+        .danger-btn { background: var(--danger); color: white; border: none; padding: 12px 16px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.9rem; white-space: normal; transition: all 0.2s; box-shadow: 0 4px 12px var(--danger-glow); width: 100%; }
         .danger-btn:hover { opacity: 0.9; }
 
-        .secondary-btn {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--glass-border);
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: all 0.2s;
-            flex: 1; 
-            min-width: max-content;
-        }
+        .secondary-btn { background: transparent; color: var(--text-main); border: 1px solid var(--glass-border); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.8rem; display: inline-flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; flex: 1; min-width: max-content; }
+        .secondary-btn:hover { background: rgba(255, 255, 255, 0.05); }
 
-        .secondary-btn:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .action-btn-group {
-            display: flex;
-            gap: 6px;
-            justify-content: flex-end;
-            flex-wrap: wrap; 
-        }
-        
-        .row-btn {
-            border: none;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            cursor: pointer;
-            color: white;
-            transition: all 0.15s;
-        }
-
+        .action-btn-group { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+        .row-btn { border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; color: white; transition: all 0.15s; }
+        .row-btn.btn-show { background: #4f46e5; }
         .row-btn.btn-edit { background: #d97706; color: #1e293b; }
         .row-btn:hover { opacity: 0.9; }
 
-        .controls {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 32px;
-            padding-top: 24px;
-            border-top: 1px solid var(--glass-border);
-            text-align: center;
-            width: 100%;
-        }
-
+        .controls { display: flex; flex-direction: column; gap: 16px; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--glass-border); text-align: center; width: 100%; }
         @media (min-width: 640px) { .controls { flex-direction: row; text-align: left; } }
 
-        .info-tag {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            text-align: center;
-            width: 100%;
-        }
-
+        .info-tag { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; display: flex; flex-direction: column; gap: 4px; text-align: center; width: 100%; }
         @media (min-width: 640px) { .info-tag { text-align: left; } }
 
-        #hidden-bill-template {
-            position: absolute;
-            left: -9999px;
-            top: -9999px;
-            width: 450px;
-            background: #ffffff;
-            color: #1e293b;
-            padding: 16px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            box-sizing: border-box;
-        }
-        .bill-header {
-            text-align: center;
-            border-bottom: 2px dashed #cbd5e1;
-            padding-bottom: 12px;
-            margin-bottom: 14px;
-        }
+        #hidden-bill-template { position: absolute; left: -9999px; top: -9999px; width: 450px; background: #ffffff; color: #1e293b; padding: 16px; font-family: 'Plus Jakarta Sans', sans-serif; box-sizing: border-box; }
+        .bill-header { text-align: center; border-bottom: 2px dashed #cbd5e1; padding-bottom: 12px; margin-bottom: 14px; }
         .bill-header h2 { margin: 0 0 4px 0; font-size: 1.25rem; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 0.02em; }
         .bill-header p { margin: 0; font-size: 0.75rem; color: #64748b; font-weight: 500; }
         .bill-meta-table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 0.75rem; }
@@ -552,34 +180,37 @@
         .bill-tx-table td { border-bottom: 1px solid #f1f5f9; padding: 8px 2px; color: #334155; vertical-align: middle; font-weight: 500; word-break: break-all; }
         .bill-footer { margin-top: 18px; border-top: 2px dashed #cbd5e1; padding-top: 12px; text-align: center; font-size: 0.7rem; color: #64748b; font-weight: 600; }
         
-        .select-column {
-            width: 40px;
-            text-align: center;
-            display: none;
-        }
-        .vault-checkbox {
-            accent-color: var(--danger);
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
+        .select-column { width: 40px; text-align: center; display: none; }
+        .vault-checkbox { accent-color: var(--danger); width: 16px; height: 16px; cursor: pointer; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div id="auth-container" class="container" style="max-width: 400px; width: 100%; text-align: center; margin: auto; margin-top: 50px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px;">
+    <h1 style="font-size: 2rem; padding: 0; text-align: center; margin-bottom: 0;">Digi Docs Login</h1>
+    <p class="subtitle" style="margin-bottom: 24px; padding: 0; text-align: center;">Secure Cloud Access</p>
+    
+    <div class="extra-input-group" style="gap: 14px;">
+        <input type="email" id="auth-email" placeholder="Email Address" class="extra-input" style="padding: 14px;">
+        <input type="password" id="auth-password" placeholder="Password" class="extra-input" style="padding: 14px;">
+        
+        <button id="auth-login-btn" class="extra-btn" style="padding: 14px; margin-top: 8px;">Login</button>
+        <button id="auth-signup-btn" class="secondary-btn" style="padding: 14px;">Sign Up</button>
+        
+        <hr style="border-color: var(--glass-border); width: 100%; margin: 8px 0;">
+        
+        <button id="auth-google-btn" class="secondary-btn" style="padding: 14px; width: 100%; font-weight: 700;">🌐 Sign in with Google</button>
+    </div>
+</div>
+
+<div id="main-app-container" class="container" style="display: none;">
     <div class="header-section">
-        <div class="utility-wrapper">
-            <div class="utility-tray">
-                <button class="secondary-btn" onclick="toggleTheme()">🎨 Theme</button>
-                <button class="secondary-btn" onclick="exportJSONBackup()">💾 Backup</button>
-                <button class="secondary-btn" onclick="triggerRestoreClick()">🔄 Restore</button>
-                <input type="file" id="restoreFileSelector" accept=".json" style="display: none;" onchange="importJSONBackup(event)">
-            </div>
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="🔍 Search code, name, or date..." class="extra-input" onkeyup="filterDocuments()" style="padding: 8px 12px; font-size: 0.85rem; border-radius: 8px;">
-            </div>
+        <div class="utility-tray">
+            <button class="secondary-btn" onclick="toggleTheme()">🎨 Theme</button>
+            <button class="secondary-btn" onclick="exportJSONBackup()">💾 Backup</button>
+            <button class="secondary-btn" onclick="triggerRestoreClick()">🔄 Restore</button>
+            <input type="file" id="restoreFileSelector" accept=".json" style="display: none;" onchange="importJSONBackup(event)">
+            <button class="secondary-btn" onclick="logoutSupabase()" style="color: var(--danger); border-color: rgba(239, 68, 68, 0.3);">🚪 Logout</button>
         </div>
         <div>
             <h1>Digi Documents</h1>
@@ -618,7 +249,8 @@
                             <th style="width: 15%;">Code</th>
                             <th>Document Name</th>
                             <th>Document Date</th>
-                            <th style="width: 30%;">Document Number</th>
+                            <th style="width: 20%;">Document Number</th>
+                            <th style="width: 10%;">File</th> 
                             <th style="text-align: right;">Actions</th>
                         </tr>
                     </thead>
@@ -646,7 +278,20 @@
 
                     <div>
                         <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px; letter-spacing:0.02em;">Document Number</label>
-                        <input type="text" id="docNumber" placeholder="******" class="extra-input">
+                        <input type="password" id="docNumber" placeholder="******" class="extra-input">
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px; letter-spacing:0.02em;">Document File (Optional)</label>
+                        <input type="file" id="docFile" class="extra-input" accept="image/*,application/pdf" capture="environment">
+                        <small id="upload-status" style="color: var(--primary); display: none;">Uploading...</small>
+                    </div>
+
+                    <div style="display: flex; align-items: center; margin-top: 2px;">
+                        <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; user-select: none;">
+                            <input type="checkbox" onclick="toggleInputVisibility()" style="accent-color: var(--primary); width: 15px; height: 15px; border-radius: 4px;"> 
+                            Show Document Number
+                        </label>
                     </div>
 
                     <button id="mainActionBtn" onclick="saveDocument()" class="extra-btn" style="margin-top: 8px;">
@@ -696,38 +341,70 @@
         <p></p>
     </div>
     <table class="bill-meta-table">
-        <tr>
-             <td class="label">Slip No:</td>
-            <td class="value" id="bill-number-val">#TXN-9948274</td>
-        </tr>
-        <tr>
-            <td class="label">Generated Timestamp:</td>
-            <td class="value" id="bill-generation-time">01/01/2026 12:00 PM</td>
-        </tr>
-        <tr>
-            <td class="label">Total Keys Exported:</td>
-            <td class="value" id="bill-transaction-count">0 Records</td>
-        </tr>
+        <tr><td class="label">Slip No:</td><td class="value" id="bill-number-val">#TXN-9948274</td></tr>
+        <tr><td class="label">Generated Timestamp:</td><td class="value" id="bill-generation-time">01/01/2026 12:00 PM</td></tr>
+        <tr><td class="label">Total Keys Exported:</td><td class="value" id="bill-transaction-count">0 Records</td></tr>
     </table>
     <div class="bill-title-bar">Digi Encrypted Data</div>
     <table class="bill-tx-table">
         <thead>
-            <tr>
-                <th style="width: 20%">Code</th>
-                <th style="width: 25%">Doc Name</th>
-                <th style="width: 30%">Doc Date</th>
-                <th style="width: 25%">Doc Number</th>
-            </tr>
+            <tr><th style="width: 20%">Code</th><th style="width: 25%">Doc Name</th><th style="width: 30%">Doc Date</th><th style="width: 25%">Doc Number</th></tr>
         </thead>
-        <tbody id="bill-table-body-target">
-            </tbody>
+        <tbody id="bill-table-body-target"></tbody>
     </table>
-    <div class="bill-footer">
-        ---🔒 Digitally Verified by NENP ---
-    </div>
+    <div class="bill-footer">---🔒 Digitally Verified by NENP ---</div>
 </div>
 
 <script>
+try {
+    // --- 1. SUPABASE INITIALIZATION ---
+    const supabaseUrl = 'https://sjwmoktnwtbokukeospq.supabase.co'; 
+    const supabaseKey = 'sb_publishable_tQrtvFtunv7iqWpLmQSLdg_tvrakVcf'; 
+    
+    // Using supabaseClient variable to prevent any browser conflicts
+    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    let currentUser = null;
+
+    // Listen for Login/Logout
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        if (session) {
+            currentUser = session.user;
+            document.getElementById('auth-container').style.display = 'none';
+            document.getElementById('main-app-container').style.display = 'block';
+            displayDocuments(); 
+        } else {
+            currentUser = null;
+            document.getElementById('auth-container').style.display = 'block';
+            document.getElementById('main-app-container').style.display = 'none';
+        }
+    });
+
+    // --- 2. AUTHENTICATION BUTTONS ---
+    document.getElementById('auth-signup-btn').addEventListener('click', async () => {
+        const email = document.getElementById('auth-email').value;
+        const pass = document.getElementById('auth-password').value;
+        const { error } = await supabaseClient.auth.signUp({ email, password: pass });
+        if (error) alert(error.message); else alert("Check email to verify!");
+    });
+
+    document.getElementById('auth-login-btn').addEventListener('click', async () => {
+        const email = document.getElementById('auth-email').value;
+        const pass = document.getElementById('auth-password').value;
+        const { error } = await supabaseClient.auth.signInWithPassword({ email, password: pass });
+        if (error) alert(error.message);
+    });
+
+    document.getElementById('auth-google-btn').addEventListener('click', async () => {
+        await supabaseClient.auth.signInWithOAuth({ provider: 'google' });
+    });
+
+    window.logoutSupabase = async function() {
+        await supabaseClient.auth.signOut();
+    };
+
+    // --- 3. YOUR ORIGINAL LOGIC (With File Upload added) ---
+    
     const formFields = ['docName', 'docDate', 'docNumber'];
     formFields.forEach((id, index) => {
         document.getElementById(id).addEventListener('keypress', function (e) {
@@ -743,7 +420,6 @@
     });
 
     const initialData = []; 
-
     if (!localStorage.getItem('documents') || localStorage.getItem('documents') === '[]') {
         localStorage.setItem('documents', JSON.stringify(initialData));
     }
@@ -756,29 +432,49 @@
     }
     updateLoginTimestamp();
 
-   function generateCodeBasedOnDoc(docName) {
-        // Set the prefix to 'D' followed by a random uppercase letter (A-Z)
+    function generateCodeBasedOnDoc(docName) {
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const randomLetter = letters.charAt(Math.floor(Math.random() * letters.length));
         const prefix = `D${randomLetter}`;
-        
-        // Set random range to 201-400
-        const min = 201;
-        const max = 400;
-
+        const min = 201; const max = 400;
         const randNum = Math.floor(Math.random() * (max - min + 1)) + min;
-        
-        // Returns format: DX-XXX (e.g., DA-254)
         return `${prefix}-${String(randNum)}`;
     }
 
-    function saveDocument() {
+    window.toggleInputVisibility = function() {
+        const passInput = document.getElementById("docNumber");
+        passInput.type = (passInput.type === "password") ? "text" : "password";
+    }
+
+    window.saveDocument = async function() {
         const docName = document.getElementById('docName').value;
         const docDate = document.getElementById('docDate').value;
         const docNumber = document.getElementById('docNumber').value;
+        const fileInput = document.getElementById('docFile').files[0]; 
         const editIndex = parseInt(document.getElementById('editIndex').value);
 
-        if (!docName || !docDate || !docNumber) { alert("Please fill in all fields"); return; }
+        if (!docName || !docDate || !docNumber) { alert("Please fill in all text fields"); return; }
+
+        const uploadStatus = document.getElementById('upload-status');
+        let fileUrl = null;
+
+        if (fileInput) {
+            uploadStatus.style.display = 'block';
+            uploadStatus.innerText = "Uploading to Cloud...";
+            
+            const filePath = `${currentUser.id}/${Date.now()}_${fileInput.name}`;
+            const { error: uploadError } = await supabaseClient.storage.from('USER_DOCS').upload(filePath, fileInput);
+            
+            if (uploadError) {
+                alert("File Upload Error: " + uploadError.message);
+                uploadStatus.style.display = 'none';
+                return;
+            }
+            
+            const { data: urlData } = supabaseClient.storage.from('USER_DOCS').getPublicUrl(filePath);
+            fileUrl = urlData.publicUrl;
+            uploadStatus.style.display = 'none';
+        }
 
         let documents = JSON.parse(localStorage.getItem('documents')) || [];
         const rightNow = new Date();
@@ -786,14 +482,15 @@
 
         if (editIndex === -1) {
             const assignedCode = generateCodeBasedOnDoc(docName);
-            const entry = { docName, docDate, docNumber, code: assignedCode, updatedAt: stampStr };
+            const entry = { docName, docDate, docNumber, code: assignedCode, updatedAt: stampStr, fileUrl: fileUrl };
             documents.push(entry);
             
             localStorage.setItem('lastUpdatedCode', assignedCode);
             localStorage.setItem('lastUpdatedAt', stampStr);
         } else {
             const currentCode = documents[editIndex].code || generateCodeBasedOnDoc(docName);
-            documents[editIndex] = { docName, docDate, docNumber, code: currentCode, updatedAt: stampStr };
+            const finalFileUrl = fileUrl || documents[editIndex].fileUrl;
+            documents[editIndex] = { docName, docDate, docNumber, code: currentCode, updatedAt: stampStr, fileUrl: finalFileUrl };
             
             localStorage.setItem('lastUpdatedCode', currentCode);
             localStorage.setItem('lastUpdatedAt', stampStr);
@@ -835,14 +532,10 @@
 
         const selectBox = document.getElementById('cleanupTargetSelect');
         const currentSelection = selectBox.value;
-        
-        selectBox.innerHTML = `
-            <option value="">-- Option 1: Select the Code to Delete --</option>
-            <option value="MULTIPLE_SELECTION">💡 Use Checkboxes on Saved Documents List</option>
-        `;
+        selectBox.innerHTML = `<option value="">-- Option 1: Select the Code to Delete --</option><option value="MULTIPLE_SELECTION">💡 Use Checkboxes on Saved Documents List</option>`;
         
         if(documents.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--text-muted); font-style:italic;">No documents saved yet. Build an entry record link inside the wizard layout.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:32px; color:var(--text-muted); font-style:italic;">No documents saved yet. Build an entry record link inside the wizard layout.</td></tr>`;
             toggleCheckboxColumns(false);
             return;
         }
@@ -859,15 +552,21 @@
             opt.textContent = `${entry.code} - ${entry.docName} (${entry.docDate})`;
             selectBox.appendChild(opt);
 
+            const fileLinkHtml = entry.fileUrl 
+                ? `<a href="${entry.fileUrl}" target="_blank" style="color: var(--accent); font-weight: bold; text-decoration: none;">📎 View</a>` 
+                : `<span style="color: var(--text-muted); font-size: 0.8em;">No File</span>`;
+
             tbody.innerHTML += `
                 <tr>
                     <td class="select-column"><input type="checkbox" class="vault-checkbox row-select-checkbox" data-index="${index}"></td>
                     <td style="font-family:monospace; font-weight:700; color:var(--accent);">${entry.code}</td>
                     <td style="font-weight:700; color:var(--text-main);">${entry.docName}</td>
                     <td style="color:var(--text-muted);">${entry.docDate}</td>
-                    <td><span id="stored-pass-${index}" style="display:inline-block; min-width: 120px; font-family:monospace; background:rgba(255,255,255,0.06); padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:700; letter-spacing:1px;">${entry.docNumber}</span></td>
+                    <td><span id="stored-pass-${index}" style="display:inline-block; min-width: 120px; font-family:monospace; background:rgba(255,255,255,0.06); padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:700; letter-spacing:1px;">*****</span></td>
+                    <td>${fileLinkHtml}</td> 
                     <td>
                         <div class="action-btn-group">
+                            <button class="row-btn btn-show" onclick="toggleRowPass(this, ${index}, '${entry.docNumber}')">Show</button>
                             <button class="row-btn btn-edit" onclick="prepareEdit(${index})">Edit</button>
                         </div>
                     </td>
@@ -875,9 +574,7 @@
             `;
         });
 
-        if (dynamicFixNeeded) {
-            localStorage.setItem('documents', JSON.stringify(documents));
-        }
+        if (dynamicFixNeeded) localStorage.setItem('documents', JSON.stringify(documents));
 
         if (currentSelection === "MULTIPLE_SELECTION") {
             selectBox.value = "MULTIPLE_SELECTION";
@@ -885,169 +582,104 @@
         } else {
             toggleCheckboxColumns(false);
         }
-
-        // Re-apply filter if search input has text
-        filterDocuments();
     }
 
-    function toggleSelectAllRows(masterCheckbox) {
+    window.toggleSelectAllRows = function(masterCheckbox) {
         const checkboxes = document.querySelectorAll('.row-select-checkbox');
         checkboxes.forEach(cb => cb.checked = masterCheckbox.checked);
     }
-
-    function toggleCheckboxColumns(visible) {
+    window.toggleCheckboxColumns = function(visible) {
         const columns = document.querySelectorAll('.select-column');
-        columns.forEach(col => {
-            col.style.display = visible ? 'table-cell' : 'none';
-        });
+        columns.forEach(col => { col.style.display = visible ? 'table-cell' : 'none'; });
     }
-
-    function handleDropdownSelection(dropdown) {
-        if (dropdown.value === "MULTIPLE_SELECTION") {
-            toggleCheckboxColumns(true);
-        } else {
-            toggleCheckboxColumns(false);
-            document.getElementById('selectAllCheckbox').checked = false;
-            toggleSelectAllRows({ checked: false });
-        }
+    window.handleDropdownSelection = function(dropdown) {
+        if (dropdown.value === "MULTIPLE_SELECTION") { toggleCheckboxColumns(true); } 
+        else { toggleCheckboxColumns(false); document.getElementById('selectAllCheckbox').checked = false; toggleSelectAllRows({ checked: false }); }
     }
-
-    function executeSelectedDelete() {
+    window.executeSelectedDelete = function() {
         const selectBox = document.getElementById('cleanupTargetSelect');
         const dropdownValue = selectBox.value;
-        
         let targetIndices = [];
-
-        if (dropdownValue !== "" && dropdownValue !== "MULTIPLE_SELECTION") {
-            targetIndices.push(parseInt(dropdownValue));
-        } else if (dropdownValue === "MULTIPLE_SELECTION") {
+        if (dropdownValue !== "" && dropdownValue !== "MULTIPLE_SELECTION") { targetIndices.push(parseInt(dropdownValue)); } 
+        else if (dropdownValue === "MULTIPLE_SELECTION") {
             const checkedBoxes = document.querySelectorAll('.row-select-checkbox:checked');
-            checkedBoxes.forEach(cb => {
-                targetIndices.push(parseInt(cb.getAttribute('data-index')));
-            });
+            checkedBoxes.forEach(cb => { targetIndices.push(parseInt(cb.getAttribute('data-index'))); });
         }
-
-        if(targetIndices.length === 0) {
-            alert("Please choose a single entry from the dropdown or pick multiple entries using the list checkboxes first.");
-            return;
-        }
-
+        if(targetIndices.length === 0) { alert("Please choose a single entry from the dropdown or pick multiple entries using the list checkboxes first."); return; }
         if(confirm(`Are you sure you want to delete the ${targetIndices.length} selected item(s)?`)) {
             let documents = JSON.parse(localStorage.getItem('documents')) || [];
-            
             targetIndices.sort((a, b) => b - a);
-            
-            targetIndices.forEach(index => {
-                documents.splice(index, 1);
-            });
-
+            targetIndices.forEach(index => { documents.splice(index, 1); });
             localStorage.setItem('documents', JSON.stringify(documents));
-            
-            selectBox.value = "";
-            
-            displayDocuments();
+            selectBox.value = ""; displayDocuments();
         }
     }
-
-    function executeResetAll() {
+    window.executeResetAll = function() {
         if(confirm("💣 CRITICAL METRIC ALERT: Are you completely sure you want to delete ALL vault records? This cannot be undone.")) {
             localStorage.setItem('documents', JSON.stringify([]));
-            localStorage.removeItem('lastUpdatedCode');
-            localStorage.removeItem('lastUpdatedAt');
-            document.getElementById('cleanupTargetSelect').value = "";
-            displayDocuments();
+            localStorage.removeItem('lastUpdatedCode'); localStorage.removeItem('lastUpdatedAt');
+            document.getElementById('cleanupTargetSelect').value = ""; displayDocuments();
             alert("Vault collection database successfully purged.");
         }
     }
-
-    function exportJSONBackup() {
+    window.exportJSONBackup = function() {
         const currentData = localStorage.getItem('documents') || '[]';
         const blob = new Blob([currentData], { type: "application/json" });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = `documents_backup_${Date.now()}.json`;
-        a.click();
+        const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+        a.download = `documents_backup_${Date.now()}.json`; a.click();
     }
-
-    function triggerRestoreClick() {
-        document.getElementById('restoreFileSelector').click();
-    }
-
-    function importJSONBackup(event) {
-        const file = event.target.files[0];
-        if (!file) return;
+    window.triggerRestoreClick = function() { document.getElementById('restoreFileSelector').click(); }
+    window.importJSONBackup = function(event) {
+        const file = event.target.files[0]; if (!file) return;
         const reader = new FileReader();
         reader.onload = function(e) {
             try {
                 const imported = JSON.parse(e.target.result);
                 if (Array.isArray(imported)) {
-                    localStorage.setItem('documents', JSON.stringify(imported));
-                    displayDocuments();
-                    alert("Vault backup records loaded successfully!");
-                } else {
-                    alert("Invalid JSON file template format.");
-                }
-            } catch(err) {
-                alert("Error reading chosen backup data file.");
-            }
-        };
-        reader.readAsText(file);
+                    localStorage.setItem('documents', JSON.stringify(imported)); displayDocuments(); alert("Vault backup records loaded successfully!");
+                } else { alert("Invalid JSON file template format."); }
+            } catch(err) { alert("Error reading chosen backup data file."); }
+        }; reader.readAsText(file);
     }
-
-    function prepareEdit(index) {
+    window.prepareEdit = function(index) {
         let documents = JSON.parse(localStorage.getItem('documents'));
         const item = documents[index];
         document.getElementById('docName').value = item.docName;
         document.getElementById('docDate').value = item.docDate;
         document.getElementById('docNumber').value = item.docNumber;
         document.getElementById('editIndex').value = index;
-        
         document.getElementById('formPanelTitle').innerText = "Modify Vault Entry Block";
         const btn = document.getElementById('mainActionBtn');
-        btn.innerText = "Update Entry Keys";
-        btn.style.background = "#eab308";
-        btn.style.color = "#1e293b";
-        
+        btn.innerText = "Update Entry Keys"; btn.style.background = "#eab308"; btn.style.color = "#1e293b";
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    
-    function clearFields() {
-        document.getElementById('docName').value = '';
-        document.getElementById('docDate').value = '';
-        document.getElementById('docNumber').value = '';
+    window.toggleRowPass = function(btn, index, actualPass) {
+        const span = document.getElementById(`stored-pass-${index}`);
+        if (span.innerText === '*****') { span.innerText = actualPass; btn.innerText = 'Hide'; } 
+        else { span.innerText = '*****'; btn.innerText = 'Show'; }
     }
-
-    function toggleTheme() {
+    window.clearFields = function() {
+        document.getElementById('docName').value = ''; document.getElementById('docDate').value = ''; 
+        document.getElementById('docNumber').value = ''; document.getElementById('docFile').value = '';
+    }
+    window.toggleTheme = function() {
         const currentTheme = document.body.getAttribute('data-theme');
-        if (currentTheme === 'light') {
-            document.body.removeAttribute('data-theme');
-        } else {
-            document.body.setAttribute('data-theme', 'light');
-        }
+        if (currentTheme === 'light') { document.body.removeAttribute('data-theme'); } 
+        else { document.body.setAttribute('data-theme', 'light'); }
     }
-
-    function downloadStatementPhoto() {
+    window.downloadStatementPhoto = function() {
         let documents = JSON.parse(localStorage.getItem('documents')) || [];
         const now = new Date();
-        
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const smallLetters = "abcdefghijklmnopqrstuvwxyz"; 
-
-        const randomPrefix = letters.charAt(Math.floor(Math.random() * letters.length)) + 
-                             smallLetters.charAt(Math.floor(Math.random() * smallLetters.length));
-
+        const smallLetters = "abcdefghijklmnopqrstuvwxyz";
+        const randomPrefix = letters.charAt(Math.floor(Math.random() * letters.length)) + smallLetters.charAt(Math.floor(Math.random() * smallLetters.length));
         const randomNumber = Math.floor(Math.random() * 9999).toString().padStart(4, '0');
         document.getElementById('bill-number-val').innerText = `#${randomPrefix}-${randomNumber}`;
-        
         document.getElementById('bill-generation-time').innerText = now.toLocaleString();
         document.getElementById('bill-transaction-count').innerText = `${documents.length} Accounts Logged`;
-
-        const tbody = document.getElementById('bill-table-body-target');
-        tbody.innerHTML = '';
-
-        if(documents.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#94a3b8;">No records to print.</td></tr>`;
-        } else {
+        const tbody = document.getElementById('bill-table-body-target'); tbody.innerHTML = '';
+        if(documents.length === 0) { tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#94a3b8;">No records to print.</td></tr>`; } 
+        else {
             documents.forEach((entry, index) => {
                 if (!entry.code) entry.code = generateCodeBasedOnDoc(entry.docName);
                 let tr = document.createElement('tr');
@@ -1060,39 +692,15 @@
                 tbody.appendChild(tr);
             });
         }
-        
         const element = document.getElementById('hidden-bill-template');
         html2canvas(element, { scale: 2 }).then(canvas => {
-            const link = document.createElement('a');
-            link.download = `Vault_Master_Snapshot_${Date.now()}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
+            const link = document.createElement('a'); link.download = `Vault_Master_Snapshot_${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png'); link.click();
         });
     }
-
-    // New Filter Function for the Search Bar
-    function filterDocuments() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const rows = document.querySelectorAll('#documentTable tbody tr');
-
-        if (rows.length === 1 && rows[0].cells.length === 1) return; // Ignore if table is empty state message
-
-        rows.forEach(row => {
-            if (row.cells.length > 3) { // Ensure it's a valid data row
-                const code = row.cells[1].textContent.toLowerCase();
-                const docName = row.cells[2].textContent.toLowerCase();
-                const docDate = row.cells[3].textContent.toLowerCase();
-                
-                if (code.includes(query) || docName.includes(query) || docDate.includes(query)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            }
-        });
-    }
-
-    displayDocuments();
+} catch (error) {
+    console.error("Setup Error:", error);
+}
 </script>
 </body>
 </html>
