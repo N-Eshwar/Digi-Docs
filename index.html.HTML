@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Digi Documents</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-glow: rgba(16, 185, 129, 0.25);
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.25);
+            --danger: #ef4444;
+            --danger-glow: rgba(239, 68, 68, 0.2);
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-hover: rgba(255, 255, 255, 0.15);
+            --input-bg: rgba(15, 23, 42, 0.4);
+            --th-bg: #151f32; 
+        }
+
+        [data-theme="light"] {
+            --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(15, 23, 42, 0.08);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --card-hover: rgba(15, 23, 42, 0.05);
+            --input-bg: rgba(255, 255, 255, 0.8);
+            --th-bg: #eef2f6; 
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-gradient);
+            background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%),
+                              linear-gradient(135deg, rgba(15, 23, 42, 0.2), rgba(30, 41, 59, 0.2)),
+                              url('https://miro.medium.com/1*-4GqkngAwACkI5cB7Ffvrg.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
+            margin: 0;
+            padding: 12px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            transition: color 0.3s ease;
+        }
+
+        @media (min-width: 640px) {
+            body { padding: 24px 16px; align-items: center; }
+        }
+
+        *, *:before, *:after { box-sizing: border-box; }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+            overflow: hidden; 
+        }
+
+        [data-theme="light"] .container {
+            background: rgba(255, 255, 255, 0.65);
+            box-shadow: 0 40px 100px -20px rgba(15, 23, 42, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+        }
+
+        @media (min-width: 480px) { .container { padding: 24px; border-radius: 28px; } }
+        @media (min-width: 768px) { .container { padding: 40px; border-radius: 32px; } }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .header-section {
+                display: block;
+                margin-bottom: 40px;
+                position: relative;
+            }
+        }
+
+        .utility-tray {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; 
+            gap: 8px;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .utility-tray {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: auto;
+                gap: 12px;
+                flex-wrap: nowrap;
+            }
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, #34d399 0%, #60a5fa 50%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        @media (min-width: 480px) { h1 { font-size: 2rem; } }
+        @media (min-width: 768px) { h1 { font-size: 3rem; margin-bottom: 12px; padding-right: 340px; text-align: left; } }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            line-height: 1.4;
+        }
+        
+        @media (min-width: 768px) { .subtitle { text-align: left; font-size: 1rem; padding-right: 340px; } }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        @media (min-width: 480px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px; } }
+
+        .stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 16px;
+            border-radius: 18px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @media (min-width: 768px) { .stat-card { padding: 24px; border-radius: 24px; } }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            opacity: 0.8;
+        }
+
+        .stat-card.accent-card::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+
+        .stat-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .stat-card p {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        @media (min-width: 768px) { .stat-card p { font-size: 2rem; } }
+
+        .stat-card .sub-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-weight: 500;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 10px;
+        }
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 1024px) { .dashboard-layout { grid-template-columns: 1fr 360px; gap: 32px; } }
+
+        .grid-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 480px) {
+            .grid-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .grid-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-main);
+        }
+
+        .days-grid-container {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 0; 
+            max-height: 450px;
+            width: 100%;
+            overflow-x: auto; 
+            overflow-y: auto;
+            position: relative;
+            isolation: isolate;
+        }
+        
+        @media (min-width: 768px) { .days-grid-container { border-radius: 24px; } }
+
+        .days-grid-container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .days-grid-container::-webkit-scrollbar-track {
+            background: transparent;
+            margin: 4px;
+        }
+        .days-grid-container::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 999px;
+        }
+        .days-grid-container::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        .vault-table {
+            width: 100%;
+            border-collapse: separate; 
+            border-spacing: 0;
+            text-align: left;
+            font-size: 0.9rem;
+            min-width: 500px; 
+        }
+
+        .vault-table th {
+            padding: 16px 20px;
+            color: var(--text-muted);
+            font-weight: 700;
+            border-bottom: 2px solid var(--glass-border);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            position: sticky;
+            top: 0;
+            background-color: var(--th-bg);
+            z-index: 10; 
+            white-space: nowrap;
+        }
+
+        .vault-table th:first-child {
+            border-top-left-radius: 17px;
+        }
+        .vault-table th:last-child {
+            border-top-right-radius: 17px;
+        }
+        @media (min-width: 768px) {
+            .vault-table th:first-child { border-top-left-radius: 23px; }
+            .vault-table th:last-child { border-top-right-radius: 23px; }
+        }
+
+        .vault-table td {
+            padding: 14px 20px;
+            color: var(--text-main);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            vertical-align: middle;
+            word-break: break-word; 
+        }
+
+        [data-theme="light"] .vault-table td {
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+        }
+
+        .vault-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        [data-theme="light"] .vault-table tbody tr:hover {
+            background: rgba(15, 23, 42, 0.02);
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        @media (min-width: 768px) { .sidebar { gap: 24px; } }
+
+        .side-panel {
+            background: var(--glass-bg);
+            padding: 16px;
+            border-radius: 18px;
+            border: 1px solid var(--glass-border);
+        }
+        
+        @media (min-width: 768px) { .side-panel { padding: 24px; border-radius: 24px; } }
+
+        .side-panel h4 {
+            margin: 0 0 16px 0;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-left: 3px solid var(--accent);
+            padding-left: 8px;
+        }
+
+        .side-panel.bonus-panel h4 { border-left-color: var(--primary); }
+        .side-panel.danger-panel h4 { border-left-color: var(--danger); }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.25));
+            color: #60a5fa;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .extra-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .extra-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            outline: none;
+            background: var(--input-bg);
+            color: var(--text-main);
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        .extra-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .extra-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: normal; 
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px var(--primary-glow);
+            width: 100%;
+        }
+        
+        .extra-btn:hover { opacity: 0.9; }
+        
+        .danger-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: normal;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px var(--danger-glow);
+            width: 100%;
+        }
+        
+        .danger-btn:hover { opacity: 0.9; }
+
+        .secondary-btn {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--glass-border);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+            flex: 1; 
+            min-width: max-content;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .action-btn-group {
+            display: flex;
+            gap: 6px;
+            justify-content: flex-end;
+            flex-wrap: wrap; 
+        }
+        
+        .row-btn {
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: white;
+            transition: all 0.15s;
+        }
+
+        .row-btn.btn-show { background: #4f46e5; }
+        .row-btn.btn-edit { background: #d97706; color: #1e293b; }
+        .row-btn:hover { opacity: 0.9; }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            width: 100%;
+        }
+
+        @media (min-width: 640px) { .controls { flex-direction: row; text-align: left; } }
+
+        .info-tag {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: center;
+            width: 100%;
+        }
+
+        @media (min-width: 640px) { .info-tag { text-align: left; } }
+
+        #hidden-bill-template {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 450px;
+            background: #ffffff;
+            color: #1e293b;
+            padding: 16px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            box-sizing: border-box;
+        }
+        .bill-header {
+            text-align: center;
+            border-bottom: 2px dashed #cbd5e1;
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+        }
+        .bill-header h2 { margin: 0 0 4px 0; font-size: 1.25rem; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 0.02em; }
+        .bill-header p { margin: 0; font-size: 0.75rem; color: #64748b; font-weight: 500; }
+        .bill-meta-table { width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 0.75rem; }
+        .bill-meta-table td { padding: 3px 0; color: #334155; }
+        .bill-meta-table td.label { font-weight: 600; color: #64748b; width: 45%; }
+        .bill-meta-table td.value { font-weight: 700; text-align: right; color: #0f172a; }
+        .bill-title-bar { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #475569; background: #f1f5f9; padding: 5px 8px; border-radius: 5px; margin-bottom: 10px; text-align: center; border: 1px solid #e2e8f0; }
+        .bill-tx-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        .bill-tx-table th { border-bottom: 2px solid #0f172a; padding: 6px 2px; text-align: left; font-weight: 700; color: #0f172a; }
+        .bill-tx-table td { border-bottom: 1px solid #f1f5f9; padding: 8px 2px; color: #334155; vertical-align: middle; font-weight: 500; word-break: break-all; }
+        .bill-footer { margin-top: 18px; border-top: 2px dashed #cbd5e1; padding-top: 12px; text-align: center; font-size: 0.7rem; color: #64748b; font-weight: 600; }
+        
+        .select-column {
+            width: 40px;
+            text-align: center;
+            display: none;
+        }
+        .vault-checkbox {
+            accent-color: var(--danger);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-section">
+        <div class="utility-tray">
+            <button class="secondary-btn" onclick="toggleTheme()">🎨 Theme</button>
+            <button class="secondary-btn" onclick="exportJSONBackup()">💾 Backup</button>
+            <button class="secondary-btn" onclick="triggerRestoreClick()">🔄 Restore</button>
+            <input type="file" id="restoreFileSelector" accept=".json" style="display: none;" onchange="importJSONBackup(event)">
+        </div>
+        <div>
+            <h1>Digi Documents</h1>
+            <p class="subtitle"> Document Management System</p>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Documents</h3>
+            <p id="total-accounts-count">0</p>
+            <div class="sub-text">Count of documents</div>
+        </div>
+        <div class="stat-card">
+            <h3>Recently Updated</h3>
+            <p id="recent-update-code" style="font-size:1.15rem; line-height:1.4; word-break:break-all; font-weight:700; color:#3b82f6;">None</p>
+            <div id="recent-update-time" class="sub-text">No modifications tracked yet</div>
+        </div>
+        <div class="stat-card accent-card">
+            <h3>Last Login Time</h3>
+            <p id="last-login-stamp" style="font-size:1.15rem; line-height:1.4; font-weight:700; color:#10b981;">00/00/0000 00:00:00</p>
+            <div class="sub-text">Live cryptographic session footprint</div>
+        </div>
+    </div>
+
+    <div class="dashboard-layout">
+        <div style="min-width: 0;">
+            <div class="grid-header">
+                <div class="grid-title">Saved Documents List</div>
+            </div>
+            <div class="days-grid-container">
+                <table id="documentTable" class="vault-table">
+                    <thead>
+                        <tr>
+                            <th class="select-column"><input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAllRows(this)" class="vault-checkbox"></th>
+                            <th style="width: 15%;">Code</th>
+                            <th>Document Name</th>
+                            <th>Document Date</th>
+                            <th style="width: 30%;">Document Number</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <div class="side-panel bonus-panel">
+                <h4 id="formPanelTitle">Entry log</h4>
+                <input type="hidden" id="editIndex" value="-1">
+
+                <div class="extra-input-group">
+                    <div>
+                        <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px; letter-spacing:0.02em;">Document Name</label>
+                        <input type="text" id="docName" placeholder="E.x. Passport / Driving License" class="extra-input">
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px; letter-spacing:0.02em;">Document Date</label>
+                        <input type="text" id="docDate" placeholder="E.x. 12/05/2030 (Expiry)" class="extra-input">
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px; letter-spacing:0.02em;">Document Number</label>
+                        <input type="password" id="docNumber" placeholder="******" class="extra-input">
+                    </div>
+
+                    <div style="display: flex; align-items: center; margin-top: 2px;">
+                        <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; user-select: none;">
+                            <input type="checkbox" onclick="toggleInputVisibility()" style="accent-color: var(--primary); width: 15px; height: 15px; border-radius: 4px;"> 
+                            Show Document Number
+                        </label>
+                    </div>
+
+                    <button id="mainActionBtn" onclick="saveDocument()" class="extra-btn" style="margin-top: 8px;">
+                        Add to Digi Docs
+                    </button>
+                </div>
+            </div>
+
+            <div class="side-panel danger-panel">
+                <h4>Vault Cleanup Tools</h4>
+                <div class="extra-input-group">
+                    <div>
+                        <label style="display:block; font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px; letter-spacing:0.02em;">Select Entry Actions</label>
+                        <select id="cleanupTargetSelect" class="extra-input" onchange="handleDropdownSelection(this)">
+                            <option value="">--Select the Code to Delete--</option>
+                            <option value="MULTIPLE_SELECTION">💡 Use Checkboxes on Saved Documents List</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;">
+                        <button class="danger-btn" onclick="executeSelectedDelete()">Delete Selected</button>
+                        <button class="secondary-btn" style="justify-content: center; font-weight: 700;" onclick="executeResetAll()">Reset All</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="side-panel">
+                <h4>Offline Media Engine</h4>
+                <div class="extra-input-group">
+                    <button class="secondary-btn" style="width: 100%; padding: 12px 4px; border-color: #eab308; color: #eab308; justify-content: center;" onclick="downloadStatementPhoto()">📸 Snapshot Vault Slip </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <span class="info-tag">
+            <span><h3>🔒 Under maintenance of NENP || @070726</h3></span>
+            <span>Verified by NENP</span>
+        </span>
+    </div>
+</div>
+
+<div id="hidden-bill-template">
+    <div class="bill-header">
+        <h3>Verified Docs</h3>
+        <p></p>
+    </div>
+    <table class="bill-meta-table">
+        <tr>
+             <td class="label">Slip No:</td>
+            <td class="value" id="bill-number-val">#TXN-9948274</td>
+        </tr>
+        <tr>
+            <td class="label">Generated Timestamp:</td>
+            <td class="value" id="bill-generation-time">01/01/2026 12:00 PM</td>
+        </tr>
+        <tr>
+            <td class="label">Total Keys Exported:</td>
+            <td class="value" id="bill-transaction-count">0 Records</td>
+        </tr>
+    </table>
+    <div class="bill-title-bar">Digi Encrypted Data</div>
+    <table class="bill-tx-table">
+        <thead>
+            <tr>
+                <th style="width: 20%">Code</th>
+                <th style="width: 25%">Doc Name</th>
+                <th style="width: 30%">Doc Date</th>
+                <th style="width: 25%">Doc Number</th>
+            </tr>
+        </thead>
+        <tbody id="bill-table-body-target">
+            </tbody>
+    </table>
+    <div class="bill-footer">
+        ---🔒 Digitally Verified by NENP ---
+    </div>
+</div>
+
+<script>
+    const formFields = ['docName', 'docDate', 'docNumber'];
+    formFields.forEach((id, index) => {
+        document.getElementById(id).addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (index < formFields.length - 1) {
+                    document.getElementById(formFields[index + 1]).focus();
+                } else {
+                    saveDocument();
+                }
+            }
+        });
+    });
+
+    const initialData = []; 
+
+    if (!localStorage.getItem('documents') || localStorage.getItem('documents') === '[]') {
+        localStorage.setItem('documents', JSON.stringify(initialData));
+    }
+
+    function updateLoginTimestamp() {
+        const now = new Date();
+        const dateStr = now.toLocaleDateString();
+        const timeStr = now.toLocaleTimeString();
+        document.getElementById('last-login-stamp').innerText = `${dateStr}\u00A0\u00A0\u00A0\u00A0${timeStr}`;
+    }
+    updateLoginTimestamp();
+
+   function generateCodeBasedOnDoc(docName) {
+        // Set the prefix to 'D' followed by a random uppercase letter (A-Z)
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const randomLetter = letters.charAt(Math.floor(Math.random() * letters.length));
+        const prefix = `D${randomLetter}`;
+        
+        // Set random range to 201-400
+        const min = 201;
+        const max = 400;
+
+        const randNum = Math.floor(Math.random() * (max - min + 1)) + min;
+        
+        // Returns format: DX-XXX (e.g., DA-254)
+        return `${prefix}-${String(randNum)}`;
+    }
+    function toggleInputVisibility() {
+        const passInput = document.getElementById("docNumber");
+        passInput.type = (passInput.type === "password") ? "text" : "password";
+    }
+
+    function saveDocument() {
+        const docName = document.getElementById('docName').value;
+        const docDate = document.getElementById('docDate').value;
+        const docNumber = document.getElementById('docNumber').value;
+        const editIndex = parseInt(document.getElementById('editIndex').value);
+
+        if (!docName || !docDate || !docNumber) { alert("Please fill in all fields"); return; }
+
+        let documents = JSON.parse(localStorage.getItem('documents')) || [];
+        const rightNow = new Date();
+        const stampStr = `${rightNow.toLocaleDateString()} ${rightNow.toLocaleTimeString()}`;
+
+        if (editIndex === -1) {
+            const assignedCode = generateCodeBasedOnDoc(docName);
+            const entry = { docName, docDate, docNumber, code: assignedCode, updatedAt: stampStr };
+            documents.push(entry);
+            
+            localStorage.setItem('lastUpdatedCode', assignedCode);
+            localStorage.setItem('lastUpdatedAt', stampStr);
+        } else {
+            const currentCode = documents[editIndex].code || generateCodeBasedOnDoc(docName);
+            documents[editIndex] = { docName, docDate, docNumber, code: currentCode, updatedAt: stampStr };
+            
+            localStorage.setItem('lastUpdatedCode', currentCode);
+            localStorage.setItem('lastUpdatedAt', stampStr);
+
+            document.getElementById('editIndex').value = "-1";
+            document.getElementById('mainActionBtn').innerText = "Add to Digi Docs";
+            document.getElementById('formPanelTitle').innerText = "Entry log";
+            document.getElementById('mainActionBtn').style.background = "var(--primary)";
+            document.getElementById('mainActionBtn').style.color = "white";
+        }
+
+        localStorage.setItem('documents', JSON.stringify(documents));
+        clearFields();
+        displayDocuments();
+    }
+
+    function displayDocuments() {
+        const tbody = document.querySelector('#documentTable tbody');
+        tbody.innerHTML = '';
+        let documents = JSON.parse(localStorage.getItem('documents')) || [];
+        
+        document.getElementById('total-accounts-count').innerText = documents.length;
+        document.getElementById('selectAllCheckbox').checked = false;
+        
+        const savedCode = localStorage.getItem('lastUpdatedCode');
+        const savedTime = localStorage.getItem('lastUpdatedAt');
+        if (savedCode && savedTime) {
+            document.getElementById('recent-update-code').innerText = savedCode;
+            document.getElementById('recent-update-time').innerText = `Modified: ${savedTime}`;
+        } else if (documents.length > 0) {
+            const lastEntry = documents[documents.length - 1];
+            if (!lastEntry.code) lastEntry.code = generateCodeBasedOnDoc(lastEntry.docName);
+            document.getElementById('recent-update-code').innerText = lastEntry.code;
+            document.getElementById('recent-update-time').innerText = `Modified: ${lastEntry.updatedAt || 'Initial'}`;
+        } else {
+            document.getElementById('recent-update-code').innerText = "None";
+            document.getElementById('recent-update-time').innerText = "No modifications tracked yet";
+        }
+
+        const selectBox = document.getElementById('cleanupTargetSelect');
+        const currentSelection = selectBox.value;
+        
+        selectBox.innerHTML = `
+            <option value="">-- Option 1: Select the Code to Delete --</option>
+            <option value="MULTIPLE_SELECTION">💡 Use Checkboxes on Saved Documents List</option>
+        `;
+        
+        if(documents.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:32px; color:var(--text-muted); font-style:italic;">No documents saved yet. Build an entry record link inside the wizard layout.</td></tr>`;
+            toggleCheckboxColumns(false);
+            return;
+        }
+
+        let dynamicFixNeeded = false;
+        documents.forEach((entry, index) => {
+            if (!entry.code) {
+                entry.code = generateCodeBasedOnDoc(entry.docName);
+                dynamicFixNeeded = true;
+            }
+
+            const opt = document.createElement('option');
+            opt.value = index;
+            opt.textContent = `${entry.code} - ${entry.docName} (${entry.docDate})`;
+            selectBox.appendChild(opt);
+
+            tbody.innerHTML += `
+                <tr>
+                    <td class="select-column"><input type="checkbox" class="vault-checkbox row-select-checkbox" data-index="${index}"></td>
+                    <td style="font-family:monospace; font-weight:700; color:var(--accent);">${entry.code}</td>
+                    <td style="font-weight:700; color:var(--text-main);">${entry.docName}</td>
+                    <td style="color:var(--text-muted);">${entry.docDate}</td>
+                    <td><span id="stored-pass-${index}" style="display:inline-block; min-width: 120px; font-family:monospace; background:rgba(255,255,255,0.06); padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:700; letter-spacing:1px;">*****</span></td>
+                    <td>
+                        <div class="action-btn-group">
+                            <button class="row-btn btn-show" onclick="toggleRowPass(this, ${index}, '${entry.docNumber}')">Show</button>
+                            <button class="row-btn btn-edit" onclick="prepareEdit(${index})">Edit</button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        });
+
+        if (dynamicFixNeeded) {
+            localStorage.setItem('documents', JSON.stringify(documents));
+        }
+
+        if (currentSelection === "MULTIPLE_SELECTION") {
+            selectBox.value = "MULTIPLE_SELECTION";
+            toggleCheckboxColumns(true);
+        } else {
+            toggleCheckboxColumns(false);
+        }
+    }
+
+    function toggleSelectAllRows(masterCheckbox) {
+        const checkboxes = document.querySelectorAll('.row-select-checkbox');
+        checkboxes.forEach(cb => cb.checked = masterCheckbox.checked);
+    }
+
+    function toggleCheckboxColumns(visible) {
+        const columns = document.querySelectorAll('.select-column');
+        columns.forEach(col => {
+            col.style.display = visible ? 'table-cell' : 'none';
+        });
+    }
+
+    function handleDropdownSelection(dropdown) {
+        if (dropdown.value === "MULTIPLE_SELECTION") {
+            toggleCheckboxColumns(true);
+        } else {
+            toggleCheckboxColumns(false);
+            document.getElementById('selectAllCheckbox').checked = false;
+            toggleSelectAllRows({ checked: false });
+        }
+    }
+
+    function executeSelectedDelete() {
+        const selectBox = document.getElementById('cleanupTargetSelect');
+        const dropdownValue = selectBox.value;
+        
+        let targetIndices = [];
+
+        if (dropdownValue !== "" && dropdownValue !== "MULTIPLE_SELECTION") {
+            targetIndices.push(parseInt(dropdownValue));
+        } else if (dropdownValue === "MULTIPLE_SELECTION") {
+            const checkedBoxes = document.querySelectorAll('.row-select-checkbox:checked');
+            checkedBoxes.forEach(cb => {
+                targetIndices.push(parseInt(cb.getAttribute('data-index')));
+            });
+        }
+
+        if(targetIndices.length === 0) {
+            alert("Please choose a single entry from the dropdown or pick multiple entries using the list checkboxes first.");
+            return;
+        }
+
+        if(confirm(`Are you sure you want to delete the ${targetIndices.length} selected item(s)?`)) {
+            let documents = JSON.parse(localStorage.getItem('documents')) || [];
+            
+            targetIndices.sort((a, b) => b - a);
+            
+            targetIndices.forEach(index => {
+                documents.splice(index, 1);
+            });
+
+            localStorage.setItem('documents', JSON.stringify(documents));
+            
+            selectBox.value = "";
+            
+            displayDocuments();
+        }
+    }
+
+    function executeResetAll() {
+        if(confirm("💣 CRITICAL METRIC ALERT: Are you completely sure you want to delete ALL vault records? This cannot be undone.")) {
+            localStorage.setItem('documents', JSON.stringify([]));
+            localStorage.removeItem('lastUpdatedCode');
+            localStorage.removeItem('lastUpdatedAt');
+            document.getElementById('cleanupTargetSelect').value = "";
+            displayDocuments();
+            alert("Vault collection database successfully purged.");
+        }
+    }
+
+    function exportJSONBackup() {
+        const currentData = localStorage.getItem('documents') || '[]';
+        const blob = new Blob([currentData], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `documents_backup_${Date.now()}.json`;
+        a.click();
+    }
+
+    function triggerRestoreClick() {
+        document.getElementById('restoreFileSelector').click();
+    }
+
+    function importJSONBackup(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const imported = JSON.parse(e.target.result);
+                if (Array.isArray(imported)) {
+                    localStorage.setItem('documents', JSON.stringify(imported));
+                    displayDocuments();
+                    alert("Vault backup records loaded successfully!");
+                } else {
+                    alert("Invalid JSON file template format.");
+                }
+            } catch(err) {
+                alert("Error reading chosen backup data file.");
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function prepareEdit(index) {
+        let documents = JSON.parse(localStorage.getItem('documents'));
+        const item = documents[index];
+        document.getElementById('docName').value = item.docName;
+        document.getElementById('docDate').value = item.docDate;
+        document.getElementById('docNumber').value = item.docNumber;
+        document.getElementById('editIndex').value = index;
+        
+        document.getElementById('formPanelTitle').innerText = "Modify Vault Entry Block";
+        const btn = document.getElementById('mainActionBtn');
+        btn.innerText = "Update Entry Keys";
+        btn.style.background = "#eab308";
+        btn.style.color = "#1e293b";
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleRowPass(btn, index, actualPass) {
+        const span = document.getElementById(`stored-pass-${index}`);
+        if (span.innerText === '*****') { 
+            span.innerText = actualPass; 
+            btn.innerText = 'Hide'; 
+        } else { 
+            span.innerText = '*****'; 
+            btn.innerText = 'Show'; 
+        }
+    }
+    
+    function clearFields() {
+        document.getElementById('docName').value = '';
+        document.getElementById('docDate').value = '';
+        document.getElementById('docNumber').value = '';
+    }
+
+    function toggleTheme() {
+        const currentTheme = document.body.getAttribute('data-theme');
+        if (currentTheme === 'light') {
+            document.body.removeAttribute('data-theme');
+        } else {
+            document.body.setAttribute('data-theme', 'light');
+        }
+    }
+
+    function downloadStatementPhoto() {
+        let documents = JSON.parse(localStorage.getItem('documents')) || [];
+        const now = new Date();
+        
+        // --- Updated randomPrefix logic ---
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const smallLetters = "abcdefghijklmnopqrstuvwxyz"; // Added lowercase set
+
+const randomPrefix = letters.charAt(Math.floor(Math.random() * letters.length)) + 
+                     smallLetters.charAt(Math.floor(Math.random() * smallLetters.length));
+
+const randomNumber = Math.floor(Math.random() * 9999).toString().padStart(4, '0');
+document.getElementById('bill-number-val').innerText = `#${randomPrefix}-${randomNumber}`;
+        
+        document.getElementById('bill-generation-time').innerText = now.toLocaleString();
+        document.getElementById('bill-transaction-count').innerText = `${documents.length} Accounts Logged`;
+
+        const tbody = document.getElementById('bill-table-body-target');
+        tbody.innerHTML = '';
+
+        if(documents.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#94a3b8;">No records to print.</td></tr>`;
+        } else {
+            documents.forEach((entry, index) => {
+                if (!entry.code) entry.code = generateCodeBasedOnDoc(entry.docName);
+                let tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><span style="font-family:monospace; font-weight:700; color:#3b82f6;">${entry.code}</span></td>
+                    <td><span style="font-weight:700; color:#0f172a;">${entry.docName}</span></td>
+                    <td><span style="color:#475569;">${entry.docDate}</span></td>
+                    <td style="font-family:monospace; font-weight:700; letter-spacing:0.5px; color:#dc2626;">${entry.docNumber}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        
+        const element = document.getElementById('hidden-bill-template');
+        html2canvas(element, { scale: 2 }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = `Vault_Master_Snapshot_${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    }
+
+    displayDocuments();
+</script>
+</body>
+</html>
